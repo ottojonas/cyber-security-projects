@@ -70,9 +70,7 @@ country = os.getenv("COUNTRY")
 
 # function to get country code lookup if country = True. This does have impact on performance | default is set to False.
 def country_lookup(country):
-
     if country:
-
         get_ip_to_country = ip_to_country_code(creds_audits_log_df)
         ic(get_ip_to_country)
 
