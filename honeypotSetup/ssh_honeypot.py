@@ -1,4 +1,3 @@
-import argparse
 import getpass
 import logging
 import socket
@@ -58,7 +57,7 @@ class Server(paramiko.ServerInterface):
         self.client_ip = client_ip
         self.input_username = input_username
         self.input_password = input_password
-
+    
     def check_channel_request(self, kind, channelid):
         if kind == "session":
             return paramiko.OPEN_SUCCEEDED
@@ -179,15 +178,18 @@ def client_handle(client, addr, username, password, tarpit=False):
                 for char in endless_banner:
                     channel.send(char)
                     time.sleep(8)
+            
             # standard banner -> send generic welcome banner to impersonate server
             else:
                 channel.send(standard_banner)
 
             # send channel connection to emulated shell for interpritation
             emulated_shell(channel, client_ip=client_ip)
+        
         except Exception as error:
             ic(error)
     # generic catch all exception error code
+    
     except Exception as error:
         ic(error)
 
@@ -197,17 +199,20 @@ def client_handle(client, addr, username, password, tarpit=False):
             transport.close()
         except Exception:
             pass
-
+        
         client.close()
 
 
 def honeypot(address, port, username, password, tarpit=False):
     # open a new socket using TCP | bind to port
     socks = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
     socks.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     socks.bind((address, port))
-
+    
     socks.listen(100)
+
+    # debug to see what port is being listened to     
     ic(f"ssh server is listening on port {port}")
 
     while True:
@@ -219,6 +224,7 @@ def honeypot(address, port, username, password, tarpit=False):
                 target=client_handle, args=(client, addr, username, password, tarpit)
             )
             ssh_honeypot_thread.start()
+
         except Exception as error:
             # catch all exception error code
             ic("could not open new client connection")

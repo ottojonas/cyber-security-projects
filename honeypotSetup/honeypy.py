@@ -12,7 +12,7 @@ if __name__ == "__main__":
     # create parser
     parser = argparse.ArgumentParser()
 
-    # add arguments to parser
+    # add arguments to parser | these are used in terminal command
     parser.add_argument("-a", "--address", type=str, required=True)
     parser.add_argument("-p", "--port", type=int, required=True)
     parser.add_argument("-u", "--username", type=str)
@@ -20,7 +20,6 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--ssh", action="store_true")
     parser.add_argument("-t", "--tarpit", action="store_true")
     parser.add_argument("-wh", "--http", action="store_true")
-
     args = parser.parse_args()
 
     # parse args based on user supplied arg
@@ -38,7 +37,7 @@ if __name__ == "__main__":
             if not args.password:
                 args.password = "whakawhaka"
                 ic("running with default password of whakawhaka")
-            ic(f"port: {args.port} username: {args.username} password: {password}")
+            ic(f"port: {args.port} username: {args.username} password: {args.password}")
             run_app(args.port, args.username, args.password)
 
         else:
@@ -46,7 +45,5 @@ if __name__ == "__main__":
                 "you can only choose SSH (-s) (--ssh) or HTTP (-h) (--http) when running script"
             )
 
-    except KeyboardInterrupt:
-        ic("\n program exited")
     except KeyboardInterrupt:
         ic("\n program exited")

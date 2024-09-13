@@ -1,12 +1,13 @@
 import os
 from pathlib import Path
 
+from dash import Dash, dash_table, dcc
 import dash_bootstrap_components as dbc
 import plotly.express as px
-from dash import Dash, dash_table, dcc, html
 from dash_bootstrap_templates import load_figure_template
 from dotenv import load_dotenv
 from icecream import ic
+import pandas as pd 
 
 from dashboard_data_parser import *
 from honeypy import *
@@ -49,7 +50,7 @@ top_country = top_10_calculator(get_ip_to_country, "Country_Code")
 
 # python dash constants
 # load cyborg theme from python dash bootstrap
-load_figure_template(["cybord"])
+load_figure_template(["cyborg"])
 dbc_css = (
     "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.4/dbc.min.css"
 )
@@ -69,12 +70,16 @@ country = os.getenv("COUNTRY")
 
 # function to get country code lookup if country = True. This does have impact on performance | default is set to False.
 def country_lookup(country):
+
     if country:
+
         get_ip_to_country = ip_to_country_code(creds_audits_log_df)
         ic(get_ip_to_country)
+
         top_country = top_10_calculator(get_ip_to_country, "Country_Code")
         ic(top_country)
 
+        # DEBUG: check if Country_Code is valid in top_country dataframe and return if not
         if "Country_Code" in top_country.columns and "count" in top_country.columns:
             message = dbc.Col(
                 dcc.Graph(figure=px.bar(top_country, x="Country_Code", y="count")),
@@ -84,8 +89,10 @@ def country_lookup(country):
             message = (
                 "error: top_country data frame does not contain the required columns"
             )
+
     else:
         message = "No country panel defined"
+
     return message
 
 
@@ -189,5 +196,4 @@ app.layout = dbc.Container(
 )
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
     app.run(debug=True, host="0.0.0.0")
