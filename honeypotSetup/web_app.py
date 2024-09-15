@@ -1,15 +1,16 @@
-from dash import Dash, html, dash_table, dcc
-import dash_bootstrap_components as dbc
-import plotly.express as px
-from dash_bootstrap_templates import load_figure_template
-from pathlib import Path
-from dotenv import load_dotenv
 import os
-from icecream import ic
-import pandas as pd
+from pathlib import Path
 
-from honeypy import *
+import dash_bootstrap_components as dbc
+import pandas as pd
+import plotly.express as px
+from dash import Dash, dash_table, dcc, html
+from dash_bootstrap_templates import load_figure_template
+from dotenv import load_dotenv
+from icecream import ic
+
 from dashboard_data_parser import *
+from honeypy import *
 
 # constants
 
@@ -41,7 +42,7 @@ top_passwords = top_10_calculator(creds_audits_log_df, "password")
 if "Command" in creds_audits_log_df.columns:
     top_cmds = top_10_calculator(creds_audits_log_df, "Command")
 else:
-    top_cmds = pd.DataFrame(columns=["command", "count"])
+    top_cmds = pd.DataFrame(columns=["Command", "count"])
 
 # pass IP address to calculate country code then to the top_10 calc
 get_ip_to_country = ip_to_country_code(creds_audits_log_df)

