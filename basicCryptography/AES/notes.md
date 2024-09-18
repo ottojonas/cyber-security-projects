@@ -11,3 +11,5 @@ cd AESProject
 
 dotnet add package System.Security.Cryptography.Algorithms
 dotnet add package System.Security.Cryptography.Primitives
+
+dotnet run 
