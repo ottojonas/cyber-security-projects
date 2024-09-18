@@ -1,7 +1,8 @@
 import sys
+
+from icecream import ic
 from scapy.all import sniff
 from scapy.layers.inet import IP, TCP
-from icecream import ic
 
 
 # func to handle each packet
