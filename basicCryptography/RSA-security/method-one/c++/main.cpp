@@ -1,9 +1,10 @@
 #include <bits/stdc++.h>
+#include <numeric>
+#include <cmath>
 using namespace std;
 
-// returns gcd of and b
-int gcd(int a, int h) 
-{
+// returns gcd of a and b
+int gcd(int a, int h) {
   int temp;
   while (1) {
     temp = a % h;
@@ -15,42 +16,41 @@ int gcd(int a, int h)
 }
 
 // code to demonstrate RSA algorithm
-int main() 
-{
+int main() {
   // two random prime numbers
-  double p = 3;
-  double q = 7;
+  int p = 3;
+  int q = 7;
 
   // part 1 of public key
-  double n = p * q;
+  int n = p * q;
 
   // finding part 2 of public key
-  double encrypt = 2;
-  double phi = (p - 1) * (q - 1);
-  while (encrypt < phi) {
+  int e = 2;
+  int phi = (p - 1) * (q - 1);
+  while (e < phi) {
     // encrypt must be co-prime to phi and smaller than phi
-    if (gcd(encrypt, phi) == 1)
+    if (std::gcd(e, phi) == 1)
       break;
     else
-      encrypt++;
+      e++;
   }
   // private key
   // choosing decrypt such that is satisfies
   // decrypt*encrypt = 1 + k * totient
-  int k = 2; // a constant value 
-  double decrypt = (1 + (k * phi)) / encrypt;
+  int k = 2; // a constant value
+  int d = (1 + (k * phi)) / e;
 
   // message to be encrypted
   double msg = 12;
   printf("message data = %lf", msg);
 
   // encryption c = (msg ^ encrypt) % n
-  double c = pow(msg, encrypt);
+  double c = pow(msg, e);
   c = fmod(c, n);
   printf("\nencrypted data = %lf", c);
 
   // decryption m = (c ^ d) % n
-  double m = pow(c, decrypt);
+  double m = pow(c, d);
   m = fmod(m, n);
   printf("\noriginal message sent = %lf", m);
 
