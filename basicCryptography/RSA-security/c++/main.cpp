@@ -34,6 +34,7 @@ int main()
     else
       encrypt++;
   }
+  
   // private key
   // choosing decrypt such that is satisfies
   // decrypt*encrypt = 1 + k * totient
