@@ -306,9 +306,25 @@ public class Main {
   }
 
   private String encrypt(String plainText) {
-
+    for (int i = 17; i > 1; i--) plainText = round(i, plainText); 
+    String right = plainText.substring(0, 8); 
+    String left = plainText.substring(8, 16); 
+    right = xor(right, P[16]); 
+    left = xor(left, P[17]); 
+    return left + right 
   }
-  Main(){}
+  Main(){
+    for (int i = 0; i < 32; i++) modVal = modVal << 1; 
+    
+    String plainText = "123456abcd132536"; 
+    String key = "aabb09182736ccdd"; 
+    
+    keyGenerate(key); 
+
+    System.out.println("------encryption------"); 
+    String cipherText = encrypt(plainText); 
+    System.out.println("cipher text: " + cipherText); 
+  }
   public static void main(String args[]){
     new Main(); 
   }
