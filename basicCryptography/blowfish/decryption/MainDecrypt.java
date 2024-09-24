@@ -1,6 +1,6 @@
 import java.util.*; 
 
-public class Main{
+public class MainDecrypt{
     String S[][]
         = { { "d1310ba6", "98dfb5ac", "2ffd72db", "d01adfb7", "b8e1afed",
               "6a267e96", "ba7c9045", "f12c7f99", "24a19947", "b3916cf7",
@@ -218,7 +218,7 @@ public class Main{
                    "b5470917", "9216d5d9", "8979fb1b" };
     long modVal = 1; 
 
-    private Strin hexToBin(String plainText) {
+    private String hexToBin(String plainText) {
     String binary = ""; 
     Long num; 
     String binary4B; 
@@ -234,13 +234,33 @@ public class Main{
     return binary; 
   }
 
-  private String binTohex (String plainText) {
+  private String binToHex (String plainText) {
     long num = Long.parseUnsignedLong(plainText, 2); 
-    String hext = Long.toHexString(num); 
+    String hexa = Long.toHexString(num); 
     while (hexa.length() < (plainText.length() / 4))
 
-      hexa = "0" + hext; 
+      hexa = "0" + hexa; 
 
     return hexa; 
   }
+
+  private String xor() {
+    a = hexToBin(a); 
+    b = hexToBin(b); 
+    String ans = ""; 
+    for (int i = 0; i < a.length(); i++) ans += (char)(((a.charAt(i) - '0') ^ (b.charAt(i) - '0')) + '0'); 
+    ans = binToHex(ans);
+    return ans; 
+  }
+  private String addBin(String a, String b) {
+    String ans = ""; 
+    long n1 = Long.parseUnsignedLong(a, 16); 
+    long n2 = Long.parseUnsignedLong(b, 16); 
+    n1 = (n1 + n2) % modVal; 
+    ans = Long.toHexString(n1); 
+    ans = "0000000" + ans; 
+    return ans.substring(ans.length() - 8); 
+  }
+
+  private String f(String plainText) {}
 }

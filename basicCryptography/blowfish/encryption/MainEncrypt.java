@@ -1,6 +1,6 @@
 import java.util.*; 
 
-public class Main {
+public class MainEncrypt {
    // Substitution boxes each string is a 32 bit hexadecimal value.
     String S[][]
         = { { "d1310ba6", "98dfb5ac", "2ffd72db", "d01adfb7", "b8e1afed",
@@ -240,7 +240,7 @@ public class Main {
   
   private String binToHex(String plainText) {
     long num = Long.parseUnsignedLong(plainText, 2); 
-    String hexa = Lond.toHexString(num); 
+    String hexa = Long.toHexString(num); 
 
     while (hexa.length() < (plainText.length() / 4))
       hexa = "0" + hexa; 
@@ -311,9 +311,9 @@ public class Main {
     String left = plainText.substring(8, 16); 
     right = xor(right, P[16]); 
     left = xor(left, P[17]); 
-    return left + right 
+    return left + right;
   }
-  Main(){
+  MainEncrypt(){
     for (int i = 0; i < 32; i++) modVal = modVal << 1; 
     
     String plainText = "123456abcd132536"; 
@@ -326,6 +326,6 @@ public class Main {
     System.out.println("cipher text: " + cipherText); 
   }
   public static void main(String args[]){
-    new Main(); 
+    new MainEncrypt(); 
   }
 }
